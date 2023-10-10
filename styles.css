@@ -1,0 +1,56 @@
+/* stylesheet for calculator */
+body {
+    display:flex;
+    justify-content: center;
+}
+.calculator {
+    display: grid;
+    justify-content: center;
+    align-items: center;
+    max-width: 22rem;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0px 3px 6px 0px rgba(0, 0, 0, 0.15), 0px 2px 4px 0px rgba(0, 0, 0, 0.12);
+}
+.calculator_display {
+    font-size: 6rem;
+    text-align: end;
+    background-color: rgba(0, 0, 0, 0.75); 
+    color: rgb(255, 255, 255);
+    padding-right: 0.5rem;
+    padding-block-end: 0.27rem;
+}
+.calculator_keys {
+    padding:0.5rem;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-gap: 2px;
+    background-color: rgba(0,0,0, 0.5)
+}
+
+.calculator_key {
+    border-style: none;
+    padding-block-start: 0.6rem; 
+    padding-block-end: 0.6rem; 
+    text-align: center;
+    font-size: 2rem;
+    background-color:rgb(255, 255, 255);
+    border-radius: 4rem;
+    inline-size: 4rem;
+    margin:0.25rem;
+    
+}
+
+.calculator_key:hover{
+    opacity: 0.75;
+}
+
+.calculator_key--operator {
+    background-color: rgba(210, 220, 228);
+
+}
+.calculator_key--enter {
+    grid-column: 4 / 5; /* Start at column #4 and end at column #5 (the very right edge). */
+    grid-row: 2 / span 4; /* Start at row #2 and span 4 rows */
+    background-color: rgba(254, 97, 72)
+}
