@@ -7,22 +7,37 @@ function isOperator(char) {
     return operators.includes(char);
 }
 
+
+function currentNumberHasDot() {
+    const parts = display.textContent.split(' ');
+    const currentNumber = parts[parts.length - 1];
+    return currentNumber.includes('.');
+}
+
 function handleNumberInput(numberstr) {
     if (numberstr === ".") {
-        if (!display.textContent.includes(".")) {
+        if (!currentNumberHasDot()) {
             display.append(".");
         }
-    } else {
-        display.textContent = display.textContent === "0" || lastOperationWasEqual ? numberstr : display.textContent + numberstr;
-        lastOperationWasEqual = false;
+    }
+    
+    else if(lastOperationWasEqual){
+        display.textContent = calculateResult(display.textContent);
+    }
+
+    else {
+        display.textContent = display.textContent === "0" ? numberstr : display.textContent + numberstr;
     }
 }
 
 function handleOperation(operation) {
     let lastChar = display.textContent.slice(-1);
-    if (!isOperator(lastChar) && operation !== "=") {
-        display.append(operation);
-    } else if (operation === "=") {
+    if (!isOperator(lastChar) && operation !== "=" || lastOperationWasEqual && operation !== "=" ) {
+        display.append(" " + operation + " ");
+        lastOperationWasEqual = false;
+    } 
+    
+    else if (operation === "=") {
         display.textContent = calculateResult(display.textContent);
         lastOperationWasEqual = true;
     }
@@ -30,7 +45,7 @@ function handleOperation(operation) {
 
 function calculateResult(expression) {
     try {
-        return math.evaluate(expression);
+        return math.round(math.evaluate(expression), 3);
     } catch (error) {
         return "ERROR";
     }
