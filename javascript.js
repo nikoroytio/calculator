@@ -1,6 +1,26 @@
-let buttons = document.querySelectorAll(".calculator_key");
-let display = document.querySelector(".calculator_display");
+const buttons = document.querySelectorAll(".calculator_key");
+const display = document.querySelector(".calculator_display");
+const originalFontSize = window.getComputedStyle(display).fontSize;
 let lastOperationWasEqual = false;
+
+
+
+function resetFontSize(element) {
+    element.style.fontSize = originalFontSize;
+}
+
+function adjustFontSize(element) {
+
+    const MAX_WIDTH = element.clientWidth;
+    
+
+    while (element.scrollWidth > MAX_WIDTH) {
+        let currentSizePercentage = parseFloat(window.getComputedStyle(element).fontSize) / parseFloat(window.getComputedStyle(element.parentElement).fontSize) * 100;
+        element.style.fontSize = (currentSizePercentage - 10) + "%";  // Decrease by 10% each iteration
+    }
+
+}
+
 
 function isOperator(char) {
     const operators = ['+', '-', '*', '/', '='];
@@ -22,7 +42,7 @@ function handleNumberInput(numberstr) {
     }
     
     else if(lastOperationWasEqual){
-        display.textContent = calculateResult(display.textContent);
+        return;
     }
 
     else {
@@ -31,14 +51,16 @@ function handleNumberInput(numberstr) {
 }
 
 function handleOperation(operation) {
-    let lastChar = display.textContent.slice(-1);
-    if (!isOperator(lastChar) && operation !== "=" || lastOperationWasEqual && operation !== "=" ) {
+    let lastChar = display.textContent.trim().slice(-1);
+    
+    if ((!isOperator(lastChar)  || lastOperationWasEqual) && operation !== "=" ) {
         display.append(" " + operation + " ");
         lastOperationWasEqual = false;
     } 
     
     else if (operation === "=") {
         display.textContent = calculateResult(display.textContent);
+        resetFontSize(display);
         lastOperationWasEqual = true;
     }
 }
@@ -59,11 +81,14 @@ buttons.forEach(function(button) {
 
         if (numberstr) {
             handleNumberInput(numberstr);
+            adjustFontSize(display);
         } else if (operation) {
             handleOperation(operation);
+            adjustFontSize(display);
         } else if (deleteAction === "true") {
-            display.textContent = "0";
+            display.textContent = "0";     
             lastOperationWasEqual = false;
+            resetFontSize(display);
         }
     });
 });
