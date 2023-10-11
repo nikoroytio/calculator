@@ -7,29 +7,30 @@
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="/styles.css">
+        <script src=https://cdnjs.cloudflare.com/ajax/libs/mathjs/11.11.1/math.js></script>
         <script src="/javascript.js" defer></script>
     </head>
     <body>
         <div class="calculator">
             <div class="calculator_display">0</div>
             <div class="calculator_keys">
-              <button class="calculator_key calculator_key--operator">+</button>
-              <button class="calculator_key calculator_key--operator">-</button>
-              <button class="calculator_key calculator_key--operator">&times;</button>
-              <button class="calculator_key calculator_key--operator">÷</button>
-              <button class="calculator_key">7</button>
-              <button class="calculator_key">8</button>
-              <button class="calculator_key">9</button>
-              <button class="calculator_key">4</button>
-              <button class="calculator_key">5</button>
-              <button class="calculator_key">6</button>
-              <button class="calculator_key">1</button>
-              <button class="calculator_key">2</button>
-              <button class="calculator_key">3</button>
-              <button class="calculator_key">0</button>
-              <button class="calculator_key">.</button>
-              <button class="calculator_key">AC</button>
-              <button class="calculator_key calculator_key--enter">=</button>
+              <button class="calculator_key calculator_key_operator" data-operation="+">+</button>
+              <button class="calculator_key calculator_key_operator" data-operation="-">-</button>
+              <button class="calculator_key calculator_key_operator" data-operation="*">&times;</button>
+              <button class="calculator_key calculator_key_operator" data-operation="/">÷</button>
+              <button class="calculator_key"data-number="7" >7</button>
+              <button class="calculator_key"data-number="8" >8</button>
+              <button class="calculator_key"data-number="9" >9</button>
+              <button class="calculator_key"data-number="4" >4</button>
+              <button class="calculator_key"data-number="5" >5</button>
+              <button class="calculator_key"data-number="6" >6</button>
+              <button class="calculator_key"data-number="1" >1</button>
+              <button class="calculator_key"data-number="2" >2</button>
+              <button class="calculator_key"data-number="3" >3</button>
+              <button class="calculator_key"data-number="0" >0</button>
+              <button class="calculator_key"data-number="." >.</button>
+              <button class="calculator_key" data-delete ="true">AC</button>
+              <button class="calculator_key calculator_key_enter" data-operation="=">=</button>
             </div>
           </div>
     </body>
