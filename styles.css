@@ -7,13 +7,17 @@ body {
     display: grid;
     justify-content: center;
     align-items: center;
-    max-width: 22rem;
+    grid-template-rows: auto 1fr;
+    max-width: 20rem;
     border-radius: 10px;
     overflow: hidden;
     box-shadow: 0px 3px 6px 0px rgba(0, 0, 0, 0.15), 0px 2px 4px 0px rgba(0, 0, 0, 0.12);
 }
 .calculator_display {
     font-size: 6rem;
+    word-wrap: break-word;
+    height: auto;
+    max-width: 20rem;
     text-align: end;
     background-color: rgba(0, 0, 0, 0.75); 
     color: rgb(255, 255, 255);
@@ -45,11 +49,11 @@ body {
     opacity: 0.75;
 }
 
-.calculator_key--operator {
+.calculator_key_operator {
     background-color: rgba(210, 220, 228);
 
 }
-.calculator_key--enter {
+.calculator_key_enter {
     grid-column: 4 / 5; /* Start at column #4 and end at column #5 (the very right edge). */
     grid-row: 2 / span 4; /* Start at row #2 and span 4 rows */
     background-color: rgba(254, 97, 72)
