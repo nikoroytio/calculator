@@ -1,5 +1,6 @@
 let buttons = document.querySelectorAll(".calculator_key");
 let display = document.querySelector(".calculator_display");
+let lastOperationWasEqual = false;
 
 function isOperator(char) {
     const operators = ['+', '-', '*', '/', '='];
@@ -12,7 +13,8 @@ function handleNumberInput(numberstr) {
             display.append(".");
         }
     } else {
-        display.textContent = display.textContent === "0" ? numberstr : display.textContent + numberstr;
+        display.textContent = display.textContent === "0" || lastOperationWasEqual ? numberstr : display.textContent + numberstr;
+        lastOperationWasEqual = false;
     }
 }
 
@@ -22,6 +24,7 @@ function handleOperation(operation) {
         display.append(operation);
     } else if (operation === "=") {
         display.textContent = calculateResult(display.textContent);
+        lastOperationWasEqual = true;
     }
 }
 
@@ -45,6 +48,7 @@ buttons.forEach(function(button) {
             handleOperation(operation);
         } else if (deleteAction === "true") {
             display.textContent = "0";
+            lastOperationWasEqual = false;
         }
     });
 });
