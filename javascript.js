@@ -24,7 +24,7 @@ function adjustFontSize(element) {
 
 function isOperator(char) {
     const operators = ['+', '-', '*', '/', '='];
-    return operators.includes(char);
+    return operators.includes(char.trim());
 }
 
 
@@ -67,10 +67,51 @@ function handleOperation(operation) {
 
 function calculateResult(expression) {
     try {
-        return math.round(math.evaluate(expression), 3);
+        let expressionArray = expression.split(" ");  
+           
+        let result = evaluateExpression(expressionArray);
+        
+        if (typeof result === "number" && result.toString().includes(".")) {
+            return Math.round(result * 1000) / 1000;  
+        }
+        
+        return result;
+
     } catch (error) {
         return "ERROR";
     }
+}
+
+function evaluateExpression(expressionArray) {
+    let currentResult = parseFloat(expressionArray[0]);
+
+    for (let i = 1; i < expressionArray.length; i += 2) {
+        const operator = expressionArray[i];
+        const number = parseFloat(expressionArray[i + 1]);
+
+        switch (operator) {
+            case '+':
+                currentResult += number;
+                break;
+            case '-':
+                currentResult -= number;
+                break;
+            case '*':
+                currentResult *= number;
+                break;
+            case '/':
+                if (number !== 0) {
+                    currentResult /= number;
+                } else {
+                    return "Error: Divide by 0";
+                }
+                break;
+            default:
+                return "Error: Invalid Operator";
+        }
+    }
+
+    return currentResult;
 }
 
 buttons.forEach(function(button) {
