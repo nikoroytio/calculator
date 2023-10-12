@@ -16,7 +16,7 @@ function adjustFontSize(element) {
 
     while (element.scrollWidth > MAX_WIDTH) {
         let currentSizePercentage = parseFloat(window.getComputedStyle(element).fontSize) / parseFloat(window.getComputedStyle(element.parentElement).fontSize) * 100;
-        element.style.fontSize = (currentSizePercentage - 10) + "%";  // Decrease by 10% each iteration
+        element.style.fontSize = (currentSizePercentage - 20) + "%";  // Decrease by 10% each iteration
     }
 
 }

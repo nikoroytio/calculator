@@ -25,8 +25,8 @@ body {
     text-align: end;
     background-color: rgba(0, 0, 0, 0.75); 
     color: rgb(255, 255, 255);
-    padding-right: 0.5rem;
-    padding-left: 0.5rem;
+    padding: 0.5rem;
+    overflow-y: auto;
 }
 .calculator_keys {
     padding:0.5rem;
@@ -62,3 +62,21 @@ body {
     grid-row: 2 / span 4; /* Start at row #2 and span 4 rows */
     background-color: rgba(254, 97, 72)
 }
+
+@media only screen and (max-width: 650px) {
+    html {
+        font-size: 20px;
+    }
+  }
+
+@media only screen and (max-width: 400px) {
+    html {
+        font-size: 15px;
+    }
+  }
+
+  @media only screen and (max-width: 330px) {
+    html {
+        font-size: 10px;
+    }
+  }
