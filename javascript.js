@@ -9,6 +9,7 @@ function resetFontSize(element) {
     element.style.fontSize = originalFontSize;
 }
 
+//don´t try to add padding in here, breaks in infinite loop somehow//
 function adjustFontSize(element) {
 
     const MAX_WIDTH = element.clientWidth;
