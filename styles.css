@@ -20,7 +20,7 @@ body {
 }
 .calculator_display {
     height: 6rem;
-    font-size: 6rem;
+    font-size: 5rem;
     max-width: 20rem;
     text-align: end;
     background-color: rgba(0, 0, 0, 0.75); 
