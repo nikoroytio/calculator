@@ -3,6 +3,8 @@ const display = document.querySelector(".calculator_display");
 const originalFontSize = window.getComputedStyle(display).fontSize;
 let lastOperationWasEqual = false;
 
+let storedValue = null;
+let storedOperator = null;
 
 
 function resetFontSize(element) {
@@ -22,6 +24,9 @@ function adjustFontSize(element) {
 
 }
 
+function isDisplayMaxLength() {
+    return display.textContent.replace(/\s+/g, '').length >= 7; // Remove spaces and check length
+}
 
 function isOperator(char) {
     const operators = ['+', '-', '*', '/', '='];
@@ -36,6 +41,13 @@ function currentNumberHasDot() {
 }
 
 function handleNumberInput(numberstr) {
+    if (isDisplayMaxLength()) return;
+
+    if (isOperator(display.textContent.trim())) {
+        display.textContent = ""; // Clear the display if it currently shows an operator
+        lastOperationWasEqual = false; // Reset this flag as we're starting a new operation
+    }
+
     if (numberstr === ".") {
         if (!currentNumberHasDot()) {
             display.append(".");
@@ -52,32 +64,43 @@ function handleNumberInput(numberstr) {
 }
 
 function handleOperation(operation) {
-    let lastChar = display.textContent.trim().slice(-1);
-    
-    if ((!isOperator(lastChar)  || lastOperationWasEqual) && operation !== "=" ) {
-        display.append(" " + operation + " ");
-        lastOperationWasEqual = false;
-    } 
-    
-    else if (operation === "=") {
-        display.textContent = calculateResult(display.textContent);
+
+    if (operation !== "=") {
+        if (!lastOperationWasEqual) {
+            storedValue = parseFloat(display.textContent); // Store the current value
+        } else {
+            storedValue = display.textContent;
+            lastOperationWasEqual = false;
+        }
+        storedOperator = operation; // Store the operator
+        display.textContent = operation;
+    } else {
+        const expression = `${storedValue} ${storedOperator} ${display.textContent}`;
+        display.textContent = calculateResult(expression);
         resetFontSize(display);
         lastOperationWasEqual = true;
+
+        // Reset stored operator after calculation, but keep the storedValue for further calculations
+        storedOperator = null;
     }
 }
 
 function calculateResult(expression) {
     try {
         let expressionArray = expression.split(" ");  
-           
+
+        // If we only have a single value, return it as the result
+        if (expressionArray.length === 1) {
+            return expressionArray[0];
+        }
+
         let result = evaluateExpression(expressionArray);
-        
+
         if (typeof result === "number" && result.toString().includes(".")) {
             return Math.round(result * 1000) / 1000;  
         }
-        
-        return result;
 
+        return result;
     } catch (error) {
         return "ERROR";
     }
